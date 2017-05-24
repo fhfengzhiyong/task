@@ -6,10 +6,37 @@
 
 </head>
 <body>
+<h1>工作内容列表<a href="/task">添加</a></h1>
 {% block content %}
-    {% for task in pagination.items %}
-        task.content
-    {% endfor %}
+    <table>
+        <thead>
+        <tr>
+            <td>index_</td>
+            <td>content</td>
+            <td>work_time</td>
+            <td>question_id</td>
+            <td>resolution</td>
+            <td>complete_rate</td>
+            <td>create_time</td>
+            <td>user_id</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for task in pagination %}
+            <td>
+            <td>{{ task.index_ }}</td>
+            <td>{{ task.content }}</td>
+            <td>{{ task.work_time }}</td>
+            <td>{{ task.question_id }}</td>
+            <td>{{ task.resolution }}</td>
+            <td>{{ task.complete_rate }}</td>
+            <td>{{ task.create_time }}</td>
+            <td>{{ task.user_id }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
 </body>
 </html>

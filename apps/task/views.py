@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 # -*- __author__=straw -*-
 
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint, redirect
 from flask import current_app,g,request
-# from apps import db
 from models import Task
-from config.db import DBSession
+from config.db import Session
 
 """
 任务核心控制类
@@ -20,7 +19,9 @@ task = Blueprint("task",  __name__, template_folder="../templates/task")
 
 @task.route("/listTask")
 def list_task(page=1):
-    pagination = Task.query().order_by(Task.desc(Task.create_time).paginate(page, current_app.config['POSTS_PER_PAGE'], False))
+    session = Session()
+    pagination = session.query(Task).order_by(Task.create_time)[0:10]
+    session.close()
     # db.Query.order_by(db.desc())
     return render_template("listTask.html", pagination=pagination)
 
@@ -31,5 +32,19 @@ def list_task(page=1):
 
 
 @task.route("/")
-def add_task():
+def to_add_task():
     return render_template("addTask.html")
+
+
+@task.route("/addTask", methods=['POST'])
+def add_task():
+    form = request.form
+    task = Task()
+    task.content = form.get('content')
+    task.work_time = form.get("work_time")
+    task.complete_rate = form.get("complete_rate")
+    session = Session()
+    session.add(task)
+    session.commit()
+    session.close()
+    return redirect(location='/task')

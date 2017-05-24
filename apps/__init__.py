@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 # -*- __author__=straw -*-
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+
+# from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config.from_pyfile('../config/setting.py')
-db = SQLAlchemy(app)
+# db = SQLAlchemy(app)
 
 
 from apps.task.views import task
@@ -19,7 +20,7 @@ from apps.task.views import task
 
 
 def create_app():
-    app.config.from_pyfile('config/setting.py')
+    app.config.from_pyfile('../config/setting.py')
     app.debug = app.config['DEBUG']
     # 增加一个蓝图
 
