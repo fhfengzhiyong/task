@@ -48,3 +48,13 @@ def add_task():
     session.commit()
     session.close()
     return redirect(location='/task')
+
+
+@task.route("/delete/<ids>", methods=['GET'])
+def del_task(ids):
+    session = Session()
+    t = session.query(Task).filter_by(id=ids)[0]
+    session.delete(t)
+    session.commit()
+    session.close()
+    return redirect(location='/task/listTask')

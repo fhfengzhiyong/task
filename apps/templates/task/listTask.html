@@ -33,6 +33,7 @@
             <td>{{ task.complete_rate }}</td>
             <td>{{ task.create_time }}</td>
             <td>{{ task.user_id }}</td>
+            <td><a href="delete/{{ task.id }}">删除</a><a href="update?id={{ task.id }}">修改</a></td>
             </tr>
         {% endfor %}
         </tbody>
